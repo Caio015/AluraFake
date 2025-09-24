@@ -1,4 +1,4 @@
-package br.com.alura.AluraFake.task.adapter.in;
+package br.com.alura.AluraFake.task.adapter.in.DTO;
 
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.Type;

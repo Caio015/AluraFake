@@ -14,15 +14,11 @@ public class TaskOption {
     @Column(nullable = false)
     private boolean isCorrect;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private Task task;
 
-    public TaskOption(String text, boolean isCorrect, Task task) {
+    public TaskOption(String text, boolean isCorrect) {
 
         this.option = text;
         this.isCorrect = isCorrect;
-        this.task = task;
     }
 
     public TaskOption() {
@@ -42,10 +38,5 @@ public class TaskOption {
     public boolean isCorrect() {
 
         return isCorrect;
-    }
-
-    public Task getTask() {
-
-        return task;
     }
 }

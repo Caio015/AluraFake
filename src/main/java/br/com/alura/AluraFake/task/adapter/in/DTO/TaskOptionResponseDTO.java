@@ -1,12 +1,12 @@
-package br.com.alura.AluraFake.task.adapter.in;
+package br.com.alura.AluraFake.task.adapter.in.DTO;
 
 import br.com.alura.AluraFake.task.domain.TaskOption;
 
 public class TaskOptionResponseDTO {
 
-    private Long id;
-    private String option;
-    private boolean correct;
+    private final Long id;
+    private final String option;
+    private final boolean correct;
 
     public TaskOptionResponseDTO(Long id, String text, boolean correct) {
         this.id = id;
