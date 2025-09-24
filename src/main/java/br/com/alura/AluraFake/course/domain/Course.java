@@ -1,10 +1,13 @@
-package br.com.alura.AluraFake.course;
+package br.com.alura.AluraFake.course.domain;
 
-import br.com.alura.AluraFake.user.User;
+import br.com.alura.AluraFake.task.domain.Task;
+import br.com.alura.AluraFake.user.domain.User;
 import jakarta.persistence.*;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Course {
@@ -20,6 +23,8 @@ public class Course {
     @Enumerated(EnumType.STRING)
     private Status status;
     private LocalDateTime publishedAt;
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Task> tasks = new ArrayList<>();
 
     @Deprecated
     public Course(){}
@@ -62,5 +67,10 @@ public class Course {
 
     public LocalDateTime getPublishedAt() {
         return publishedAt;
+    }
+
+    public void addTasks(Task task) {
+
+        this.tasks.add(task);
     }
 }
