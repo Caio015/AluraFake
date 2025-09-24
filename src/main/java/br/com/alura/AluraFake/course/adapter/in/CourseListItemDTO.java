@@ -1,4 +1,7 @@
-package br.com.alura.AluraFake.course;
+package br.com.alura.AluraFake.course.adapter.in;
+
+import br.com.alura.AluraFake.course.domain.Course;
+import br.com.alura.AluraFake.course.domain.Status;
 
 import java.io.Serializable;
 

@@ -1,4 +1,7 @@
-package br.com.alura.AluraFake.user;
+package br.com.alura.AluraFake.user.adapter.in;
+
+import br.com.alura.AluraFake.user.domain.Role;
+import br.com.alura.AluraFake.user.domain.User;
 
 import java.io.Serializable;
 

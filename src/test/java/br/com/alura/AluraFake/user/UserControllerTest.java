@@ -1,5 +1,10 @@
 package br.com.alura.AluraFake.user;
 
+import br.com.alura.AluraFake.user.adapter.in.NewUserDTO;
+import br.com.alura.AluraFake.user.adapter.in.UserController;
+import br.com.alura.AluraFake.user.adapter.out.UserRepository;
+import br.com.alura.AluraFake.user.domain.Role;
+import br.com.alura.AluraFake.user.domain.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +95,7 @@ class UserControllerTest {
 
     @Test
     void listAllUsers__should_list_all_users() throws Exception {
-        User user1 = new User("User 1", "user1@test.com",Role.STUDENT);
+        User user1 = new User("User 1", "user1@test.com", Role.STUDENT);
         User user2 = new User("User 2", "user2@test.com",Role.STUDENT);
         when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
 
