@@ -1,26 +1,28 @@
 package br.com.alura.AluraFake.task.adapter.in;
 
-import br.com.alura.AluraFake.task.port.in.NewOpenTextExerciseUseCase;
+import br.com.alura.AluraFake.task.domain.Task;
+import br.com.alura.AluraFake.task.port.in.CreateOpenTextTaskUseCase;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TaskController {
 
-    private final NewOpenTextExerciseUseCase openTextExerciseUseCase;
+    private final CreateOpenTextTaskUseCase openTextExerciseUseCase;
 
-    public TaskController(NewOpenTextExerciseUseCase openTextExerciseUseCase) {
+    public TaskController(CreateOpenTextTaskUseCase openTextExerciseUseCase) {
 
         this.openTextExerciseUseCase = openTextExerciseUseCase;
     }
 
     @PostMapping("/task/new/opentext")
-    public ResponseEntity newOpenTextExercise(@RequestBody @Valid TaskDTO request) {
+    public ResponseEntity<TaskResponseDTO> newOpenTextExercise(@RequestBody @Valid TaskDTO request) {
 
-        openTextExerciseUseCase.execute(request.getCourseId(), request.getStatement(), request.getOrder());
+        Task task = openTextExerciseUseCase.execute(request.getCourseId(), request.getStatement(), request.getOrder());
 
-        return ResponseEntity.ok().build();
+         return ResponseEntity.status(HttpStatus.CREATED).body(TaskResponseDTO.of(task));
     }
 
     @PostMapping("/task/new/singlechoice")

@@ -9,5 +9,4 @@ public class TaskOptionDTO {
         this.option = option;
         this.isCorrect = isCorrect;
     }
-
 }

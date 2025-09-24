@@ -28,7 +28,7 @@ public class Task {
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskOption> options = new ArrayList<>();
 
-    public Task(Course course, String statement, Integer order) {
+    protected Task(Course course, String statement, Integer order) {
 
         this.course = course;
         this.statement = statement;
@@ -52,6 +52,11 @@ public class Task {
     public String getStatement() {
 
         return statement;
+    }
+
+    public void setOrder(Integer order) {
+
+        this.order = order;
     }
 
     public Integer getOrder() {
