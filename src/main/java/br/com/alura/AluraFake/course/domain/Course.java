@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.alura.AluraFake.task.domain.TaskValidator.*;
+import static br.com.alura.AluraFake.task.domain.TaskValidator.validateSequentialOrder;
+
 @Entity
 public class Course {
 
@@ -69,7 +72,20 @@ public class Course {
         return publishedAt;
     }
 
-    public void addTasks(Task task) {
+    public void addTask(Task task) {
+
+        validateCourseStatus(this);
+        validateDuplicateStatement(this, task.getStatement());
+        validateOrderNotNegative(task.getOrder());
+        validateSequentialOrder(getTaskOrderList(), task.getOrder());
+
+        if(this.tasks.stream().anyMatch(t -> t.getOrder().equals(task.getOrder()))) {
+
+            this.tasks.stream()
+                      .filter(t -> t.getOrder() >= task.getOrder())
+                      .forEach(t -> t.setOrder(t.getOrder() + 1));
+
+        }
 
         this.tasks.add(task);
     }
@@ -77,5 +93,13 @@ public class Course {
     public List<Task> getTasks() {
 
         return tasks;
+    }
+
+    public List<Integer> getTaskOrderList() {
+
+        return this.getTasks()
+                     .stream()
+                     .map(Task::getOrder)
+                     .toList();
     }
 }
