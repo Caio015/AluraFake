@@ -25,7 +25,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "task_id")
     private List<TaskOption> options = new ArrayList<>();
 
     protected Task(Course course, String statement, Integer order, Type type) {
@@ -70,13 +71,19 @@ public class Task {
         return type;
     }
 
-    public void addOptions(List<TaskOption> options) {
-
-        this.options.addAll(options);
-    }
-
     public List<TaskOption> getOptions() {
 
         return options;
+    }
+
+    public void addOptions(List<TaskOption> options) {
+
+        TaskValidator.validateOptionsCountByTaskType(this.type, options);
+        TaskValidator.validateIfTaskHasSingleCorrectAnswer(options);
+        TaskValidator.validateUniqueOptions(options);
+        TaskValidator.validateOptionsMustNotBeEqualToStatement(this.statement, options);
+
+        this.options.addAll(options);
+
     }
 }

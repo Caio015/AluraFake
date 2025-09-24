@@ -2,13 +2,12 @@ package br.com.alura.AluraFake.task.domain;
 
 import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.domain.Status;
-import br.com.alura.AluraFake.exceptions.CourseMustHaveBuildingStatusException;
-import br.com.alura.AluraFake.exceptions.DuplicateStatementException;
-import br.com.alura.AluraFake.exceptions.InvalidOrderException;
-import br.com.alura.AluraFake.exceptions.OrderCannotBeNegativeException;
+import br.com.alura.AluraFake.exceptions.*;
 import org.springframework.stereotype.Component;
 
+import java.text.Normalizer;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TaskValidator {
@@ -18,7 +17,7 @@ public class TaskValidator {
         if (course.getTasks()
                   .stream()
                   .map(Task::getStatement)
-                  .anyMatch(s -> s.equals(statement))) {
+                  .anyMatch(s -> normalize(s).equals(normalize(statement)))) {
 
             throw new DuplicateStatementException(statement);
         }
@@ -51,5 +50,59 @@ public class TaskValidator {
 
             throw new InvalidOrderException();
         }
+    }
+
+    public static void validateIfTaskHasSingleCorrectAnswer(List<TaskOption> options) {
+
+        if (options.stream().filter(TaskOption::isCorrect).count() > 1) {
+
+            throw new SingleChoiceAnswearException();
+        }
+    }
+
+    public static void validateUniqueOptions(List<TaskOption> options) {
+
+        if (options.stream()
+                    .map(o -> normalize(o.getOption()))
+                    .distinct()
+                    .count() != options.size()) {
+
+            throw new UniqueOptionsException();
+        }
+    }
+
+    public static void validateOptionsMustNotBeEqualToStatement(String statement, List<TaskOption> options) {
+
+        Optional<TaskOption> duplicateOption = options.stream()
+                                                      .filter(o -> normalize(o.getOption()).equals(normalize(statement)))
+                                                      .findFirst();
+
+        duplicateOption.ifPresent(o -> {
+            throw new OptionMustBeDifferentFromStatementException(o.getOption());
+        });
+    }
+
+    public static void validateOptionsCountByTaskType(Type type, List<TaskOption> options) {
+        int size = options.size();
+
+        if (type == Type.SINGLE_CHOICE && (size < 2 || size > 5)) {
+            throw new InvalidNumberOfOptionsException(
+                    "Single choice tasks must have between 2 and 5 options"
+            );
+        }
+
+        if (type == Type.MULTIPLE_CHOICE && (size < 3 || size > 5)) {
+            throw new InvalidNumberOfOptionsException(
+                    "Multiple choice tasks must have between 3 and 5 options"
+            );
+        }
+    }
+
+    private static String normalize(String text) {
+
+        return Normalizer.normalize(text, Normalizer.Form.NFD)
+                         .replaceAll("\\p{M}", "")
+                         .toLowerCase()
+                         .trim();
     }
 }

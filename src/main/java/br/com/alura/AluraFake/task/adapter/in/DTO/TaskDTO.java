@@ -1,7 +1,8 @@
-package br.com.alura.AluraFake.task.adapter.in;
+package br.com.alura.AluraFake.task.adapter.in.DTO;
 
 import jakarta.validation.constraints.Size;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TaskDTO {
@@ -10,13 +11,14 @@ public class TaskDTO {
     @Size(min = 4, max = 255, message = "The statement must be between 4 and 255 characters")
     private final String statement;
     private final Integer order;
-    private List<TaskOptionDTO> options;
+    private final List<TaskOptionDTO> options;
 
-    public TaskDTO(Long courseId, String statement, Integer order) {
+    public TaskDTO(Long courseId, String statement, Integer order, List<TaskOptionDTO> options) {
 
         this.courseId = courseId;
         this.statement = statement;
         this.order = order;
+        this.options = options != null ? options : Collections.emptyList();
     }
 
     public Long getCourseId() {
