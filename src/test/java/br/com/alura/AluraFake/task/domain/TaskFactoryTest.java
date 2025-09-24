@@ -11,6 +11,7 @@ import br.com.alura.AluraFake.user.domain.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 class TaskFactoryTest {
 
@@ -19,7 +20,7 @@ class TaskFactoryTest {
 
     @Test
     void task__should__create__successfully__whenDataIsValid() {
-        Task task = TaskFactory.createTask(course, "Aprender Java", 1);
+        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
 
         assertEquals("Aprender Java", task.getStatement());
         assertEquals(1, task.getOrder());
@@ -28,11 +29,11 @@ class TaskFactoryTest {
 
     @Test
     void task__should__throw_duplicate_statement_exception__whenStatementAlreadyExists() {
-        Task task = TaskFactory.createTask(course, "Aprender Java", 1);
+        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
 
         course.addTask(task);
 
-        Task nextTask = TaskFactory.createTask(course, "Aprender Java", 2);
+        Task nextTask = TaskFactory.createTask(course, "Aprender Java", 2, any());
 
         assertThrows(DuplicateStatementException.class, () -> course.addTask(nextTask));
     }
@@ -40,7 +41,7 @@ class TaskFactoryTest {
     @Test
     void task__should__throw_order_cannot_be_negative_exception__whenOrderIsNegative() {
 
-        Task task = TaskFactory.createTask(course, "Aprender Java", -1);
+        Task task = TaskFactory.createTask(course, "Aprender Java", -1, any());
 
         assertThrows(OrderCannotBeNegativeException.class,
                      () -> course.addTask(task));
@@ -49,11 +50,11 @@ class TaskFactoryTest {
     @Test
     void task__should__throw_invalid_order_exception__whenOrderIsOutOfSequence() {
 
-        Task task = TaskFactory.createTask(course, "Aprender Java", 1);
+        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
 
         course.addTask(task);
 
-        Task nextTask = TaskFactory.createTask(course, "Interfaces", 4);
+        Task nextTask = TaskFactory.createTask(course, "Interfaces", 4, any());
 
         assertThrows(InvalidOrderException.class,
                      () -> course.addTask(nextTask));
@@ -62,7 +63,7 @@ class TaskFactoryTest {
     @Test
     void task__should__throw_course_must_be_building_exception__whenCourseStatusNotBuilding() {
 
-        Task task = TaskFactory.createTask(course, "Aprender Java", 1);
+        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
 
         course.setStatus(Status.PUBLISHED);
 

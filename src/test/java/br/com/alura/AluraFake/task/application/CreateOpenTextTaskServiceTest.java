@@ -4,6 +4,7 @@ import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
 import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.task.domain.Task;
+import br.com.alura.AluraFake.task.domain.Type;
 import br.com.alura.AluraFake.user.domain.Role;
 import br.com.alura.AluraFake.user.domain.User;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,7 @@ class CreateOpenTextTaskServiceTest {
         assertThat(course.getTasks()).hasSize(1);
         assertThat(task.getStatement()).isEqualTo("Hello World!");
         assertThat(task.getOrder()).isEqualTo(1);
+        assertThat(task.getType()).isEqualTo(Type.OPEN_TEXT);
     }
 }
 

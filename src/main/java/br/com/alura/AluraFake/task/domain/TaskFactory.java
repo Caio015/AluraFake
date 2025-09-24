@@ -8,9 +8,9 @@ public class TaskFactory {
 
     }
 
-    public static Task createTask(Course course, String statement, Integer order) {
+    public static Task createTask(Course course, String statement, Integer order, Type type) {
 
-        return new Task(course, statement, order);
+        return new Task(course, statement, order, type);
 
     }
 }
