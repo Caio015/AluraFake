@@ -4,6 +4,7 @@ import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.TaskFactory;
+import br.com.alura.AluraFake.task.domain.Type;
 import br.com.alura.AluraFake.task.port.in.CreateOpenTextTaskUseCase;
 import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class CreateOpenTextTaskService implements CreateOpenTextTaskUseCase {
 
         Course course = findCourseByIdPort.findById(courseId);
 
-        Task task = TaskFactory.createTask(course, statement, order);
+        Task task = TaskFactory.createTask(course, statement, order, Type.OPEN_TEXT);
 
         course.addTask(task);
 

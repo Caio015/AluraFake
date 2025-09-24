@@ -28,11 +28,12 @@ public class Task {
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskOption> options = new ArrayList<>();
 
-    protected Task(Course course, String statement, Integer order) {
+    protected Task(Course course, String statement, Integer order, Type type) {
 
         this.course = course;
         this.statement = statement;
         this.order = order;
+        this.type = type;
     }
 
     public Task() {
@@ -67,11 +68,6 @@ public class Task {
     public Type getType() {
 
         return type;
-    }
-
-    public void setType(Type type) {
-
-        this.type = type;
     }
 
     public void addOptions(List<TaskOption> options) {
