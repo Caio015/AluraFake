@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.alura.AluraFake.task.domain.TaskValidator.*;
+
 @Entity
 public class Task {
 
@@ -78,10 +80,10 @@ public class Task {
 
     public void addOptions(List<TaskOption> options) {
 
-        TaskValidator.validateOptionsCountByTaskType(this.type, options);
-        TaskValidator.validateIfTaskHasCorrectAnswers(this.type, options);
-        TaskValidator.validateUniqueOptions(options);
-        TaskValidator.validateOptionsMustNotBeEqualToStatement(this.statement, options);
+        validateOptionsCountByTaskType(this.type, options);
+        validateIfTaskHasCorrectAnswers(this.type, options);
+        validateUniqueOptions(options);
+        validateOptionsMustNotBeEqualToStatement(this.statement, options);
 
         this.options.addAll(options);
 

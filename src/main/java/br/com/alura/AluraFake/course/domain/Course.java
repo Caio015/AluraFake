@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.alura.AluraFake.course.domain.CourseValidator.*;
 import static br.com.alura.AluraFake.task.domain.TaskValidator.*;
 import static br.com.alura.AluraFake.task.domain.TaskValidator.validateSequentialOrder;
 
@@ -101,5 +102,15 @@ public class Course {
                      .stream()
                      .map(Task::getOrder)
                      .toList();
+    }
+
+    public void publishCourse() {
+
+        validateIfCourseHasAtLeastOneOfEachActivitie(this);
+        validateIfOrdersAreSequentials(this);
+        validateCourseStatus(this);
+
+        this.status = Status.PUBLISHED;
+        this.publishedAt = LocalDateTime.now();
     }
 }

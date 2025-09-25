@@ -12,8 +12,9 @@ import br.com.alura.AluraFake.user.domain.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
-class CourseTaskTest {
+class CourseTest {
 
     private final User instructor = new User("Paulo", "paulo@aluta.com", Role.INSTRUCTOR);
     private final Course course = new Course("Java", "Primeiros Passos", instructor);
@@ -97,5 +98,16 @@ class CourseTaskTest {
         assertEquals(1, newTask.getOrder());
         assertEquals(2, first.getOrder());
         assertEquals(3, second.getOrder());
+    }
+
+    @Test
+    void task__should__throw_course_must_be_building_exception__whenCourseStatusNotBuilding() {
+
+        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
+
+        course.setStatus(Status.PUBLISHED);
+
+        assertThrows(CourseMustHaveBuildingStatusException.class,
+                     () -> course.addTask(task));
     }
 }
