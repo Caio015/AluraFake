@@ -79,7 +79,7 @@ public class Task {
     public void addOptions(List<TaskOption> options) {
 
         TaskValidator.validateOptionsCountByTaskType(this.type, options);
-        TaskValidator.validateIfTaskHasSingleCorrectAnswer(options);
+        TaskValidator.validateIfTaskHasCorrectAnswers(this.type, options);
         TaskValidator.validateUniqueOptions(options);
         TaskValidator.validateOptionsMustNotBeEqualToStatement(this.statement, options);
 
