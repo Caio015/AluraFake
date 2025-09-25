@@ -1,12 +1,16 @@
 package br.com.alura.AluraFake.course.adapter.out;
 
 import br.com.alura.AluraFake.course.domain.Course;
-import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
-import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
+import br.com.alura.AluraFake.course.ports.in.FindAllCoursesUseCase;
+import br.com.alura.AluraFake.course.ports.in.FindCourseByIdUseCase;
+import br.com.alura.AluraFake.course.ports.in.SaveCourseUseCase;
 import br.com.alura.AluraFake.exceptions.ItemNotFoundException;
 
-public class CourseRepositoryAdapter implements FindCourseByIdPort,
-                                                SaveCoursePort {
+import java.util.List;
+
+public class CourseRepositoryAdapter implements FindCourseByIdUseCase,
+                                                SaveCourseUseCase,
+                                                FindAllCoursesUseCase {
 
     private final CourseRepository repository;
 
@@ -25,5 +29,11 @@ public class CourseRepositoryAdapter implements FindCourseByIdPort,
     public void save(Course course) {
 
         repository.save(course);
+    }
+
+    @Override
+    public List<Course> findAll() {
+
+        return repository.findAll();
     }
 }

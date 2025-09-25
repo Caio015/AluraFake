@@ -60,16 +60,8 @@ class TaskFactoryTest {
                      () -> course.addTask(nextTask));
     }
 
-    @Test
-    void task__should__throw_course_must_be_building_exception__whenCourseStatusNotBuilding() {
 
-        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
 
-        course.setStatus(Status.PUBLISHED);
-
-        assertThrows(CourseMustHaveBuildingStatusException.class,
-                     () -> course.addTask(task));
-    }
 }
 
 

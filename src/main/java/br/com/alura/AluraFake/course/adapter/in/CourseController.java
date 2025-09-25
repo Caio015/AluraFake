@@ -1,9 +1,11 @@
 package br.com.alura.AluraFake.course.adapter.in;
 
-import br.com.alura.AluraFake.course.adapter.out.CourseRepository;
 import br.com.alura.AluraFake.course.domain.Course;
-import br.com.alura.AluraFake.user.adapter.out.UserRepository;
+import br.com.alura.AluraFake.course.ports.in.FindAllCoursesUseCase;
+import br.com.alura.AluraFake.course.ports.in.PublishCourseUseCase;
+import br.com.alura.AluraFake.course.ports.in.SaveCourseUseCase;
 import br.com.alura.AluraFake.user.domain.User;
+import br.com.alura.AluraFake.user.port.in.FindUserByEmailUseCase;
 import br.com.alura.AluraFake.util.ErrorItemDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +18,19 @@ import java.util.*;
 @RestController
 public class CourseController {
 
-    private final CourseRepository courseRepository;
-    private final UserRepository userRepository;
+    private final SaveCourseUseCase saveCoursePort;
+    private final FindUserByEmailUseCase userRepository;
+    private final FindAllCoursesUseCase findAllCoursesUseCase;
+    private final PublishCourseUseCase publishCourseUseCase;
 
     @Autowired
-    public CourseController(CourseRepository courseRepository, UserRepository userRepository){
-        this.courseRepository = courseRepository;
+    public CourseController(SaveCourseUseCase saveCoursePort, FindUserByEmailUseCase userRepository,
+                            FindAllCoursesUseCase findAllCoursesUseCase, PublishCourseUseCase publishCourseUseCase){
+
+        this.saveCoursePort = saveCoursePort;
         this.userRepository = userRepository;
+        this.findAllCoursesUseCase = findAllCoursesUseCase;
+        this.publishCourseUseCase = publishCourseUseCase;
     }
 
     @Transactional
@@ -41,13 +49,13 @@ public class CourseController {
 
         Course course = new Course(newCourse.getTitle(), newCourse.getDescription(), possibleAuthor.get());
 
-        courseRepository.save(course);
+        saveCoursePort.save(course);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/course/all")
     public ResponseEntity<List<CourseListItemDTO>> createCourse() {
-        List<CourseListItemDTO> courses = courseRepository.findAll().stream()
+        List<CourseListItemDTO> courses = findAllCoursesUseCase.findAll().stream()
                 .map(CourseListItemDTO::new)
                 .toList();
         return ResponseEntity.ok(courses);
@@ -55,7 +63,10 @@ public class CourseController {
 
     @PostMapping("/course/{id}/publish")
     public ResponseEntity createCourse(@PathVariable("id") Long id) {
-        return ResponseEntity.ok().build();
+
+        publishCourseUseCase.publish(id);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

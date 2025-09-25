@@ -1,8 +1,8 @@
-package br.com.alura.AluraFake.course.ports.out;
+package br.com.alura.AluraFake.course.ports.in;
 
 import br.com.alura.AluraFake.course.domain.Course;
 
-public interface SaveCoursePort {
+public interface SaveCourseUseCase {
 
     void save(Course course);
 

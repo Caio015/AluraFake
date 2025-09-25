@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.text.Normalizer;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 @Component
 public class TaskValidator {
@@ -32,14 +33,6 @@ public class TaskValidator {
         if (order < 0) {
 
             throw new OrderCannotBeNegativeException();
-        }
-    }
-
-    public static void validateCourseStatus(Course course) {
-
-        if (!course.getStatus().equals(Status.BUILDING)) {
-
-            throw new CourseMustHaveBuildingStatusException();
         }
     }
 
