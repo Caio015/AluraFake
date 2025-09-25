@@ -12,7 +12,11 @@ import java.util.Optional;
 @Component
 public class TaskValidator {
 
+    private TaskValidator() {
+    }
+
     public static void validateDuplicateStatement(Course course, String statement) {
+
 
         if (course.getTasks()
                   .stream()
@@ -33,8 +37,7 @@ public class TaskValidator {
 
     public static void validateCourseStatus(Course course) {
 
-        if (!course.getStatus()
-                   .equals(Status.BUILDING)) {
+        if (!course.getStatus().equals(Status.BUILDING)) {
 
             throw new CourseMustHaveBuildingStatusException();
         }
@@ -52,20 +55,28 @@ public class TaskValidator {
         }
     }
 
-    public static void validateIfTaskHasSingleCorrectAnswer(List<TaskOption> options) {
+    public static void validateIfTaskHasCorrectAnswers(Type type, List<TaskOption> options) {
 
-        if (options.stream().filter(TaskOption::isCorrect).count() > 1) {
+        long correctCount = options.stream().filter(TaskOption::isCorrect).count();
+        long incorrectCount = options.stream().filter(t -> !t.isCorrect()).count();
 
-            throw new SingleChoiceAnswearException();
+        if (type.equals(Type.SINGLE_CHOICE) && correctCount != 1) {
+
+            throw new CorrectAnswerNumberException("Single choice tasks must have exactly one correct answer.");
+        }
+
+        if (type.equals(Type.MULTIPLE_CHOICE) && (correctCount < 2 || incorrectCount < 1)) {
+
+            throw new CorrectAnswerNumberException("Multiple choice tasks must have at least two correct answers and one incorrect answer.");
         }
     }
 
     public static void validateUniqueOptions(List<TaskOption> options) {
 
         if (options.stream()
-                    .map(o -> normalize(o.getOption()))
-                    .distinct()
-                    .count() != options.size()) {
+                   .map(o -> normalize(o.getOption()))
+                   .distinct()
+                   .count() != options.size()) {
 
             throw new UniqueOptionsException();
         }
@@ -77,24 +88,23 @@ public class TaskValidator {
                                                       .filter(o -> normalize(o.getOption()).equals(normalize(statement)))
                                                       .findFirst();
 
-        duplicateOption.ifPresent(o -> {
-            throw new OptionMustBeDifferentFromStatementException(o.getOption());
+        duplicateOption.ifPresent(o -> {throw new OptionMustBeDifferentFromStatementException(o.getOption());
+
         });
     }
 
     public static void validateOptionsCountByTaskType(Type type, List<TaskOption> options) {
+
         int size = options.size();
 
         if (type == Type.SINGLE_CHOICE && (size < 2 || size > 5)) {
-            throw new InvalidNumberOfOptionsException(
-                    "Single choice tasks must have between 2 and 5 options"
-            );
+
+            throw new InvalidNumberOfOptionsException("Single choice tasks must have between 2 and 5 options");
         }
 
         if (type == Type.MULTIPLE_CHOICE && (size < 3 || size > 5)) {
-            throw new InvalidNumberOfOptionsException(
-                    "Multiple choice tasks must have between 3 and 5 options"
-            );
+
+            throw new InvalidNumberOfOptionsException("Multiple choice tasks must have between 3 and 5 options");
         }
     }
 
