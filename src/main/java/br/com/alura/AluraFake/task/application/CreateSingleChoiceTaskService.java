@@ -7,10 +7,12 @@ import br.com.alura.AluraFake.task.adapter.in.DTO.TaskOptionDTO;
 import br.com.alura.AluraFake.task.domain.*;
 import br.com.alura.AluraFake.task.port.in.CreateSingleChoiceTaskUseCase;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CreateSingleChoiceTaskService implements CreateSingleChoiceTaskUseCase {
 
     private final FindCourseByIdPort findCourseByIdPort;

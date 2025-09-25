@@ -6,9 +6,13 @@ import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.task.adapter.in.DTO.TaskOptionDTO;
 import br.com.alura.AluraFake.task.domain.*;
 import br.com.alura.AluraFake.task.port.in.CreateMultipleChoiceTaskUseCase;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class CreateMultipleChoiceTaskService implements CreateMultipleChoiceTaskUseCase {
 
     private final FindCourseByIdPort findCourseByIdPort;

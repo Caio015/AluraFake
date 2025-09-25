@@ -8,8 +8,10 @@ import br.com.alura.AluraFake.task.domain.Type;
 import br.com.alura.AluraFake.task.port.in.CreateOpenTextTaskUseCase;
 import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class CreateOpenTextTaskService implements CreateOpenTextTaskUseCase {
 
     private final FindCourseByIdPort findCourseByIdPort;

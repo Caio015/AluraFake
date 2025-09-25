@@ -4,7 +4,6 @@ import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.Type;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TaskResponseDTO {
 
@@ -15,6 +14,7 @@ public class TaskResponseDTO {
     private final List<TaskOptionResponseDTO> options;
 
     public TaskResponseDTO(Long id, String statement, Integer order, Type type, List<TaskOptionResponseDTO> options) {
+
         this.id = id;
         this.statement = statement;
         this.order = order;
@@ -23,22 +23,27 @@ public class TaskResponseDTO {
     }
 
     public Long getId() {
+
         return id;
     }
 
     public String getStatement() {
+
         return statement;
     }
 
     public Integer getOrder() {
+
         return order;
     }
 
     public Type getType() {
+
         return type;
     }
 
     public List<TaskOptionResponseDTO> getOptions() {
+
         return options;
     }
 
@@ -47,14 +52,8 @@ public class TaskResponseDTO {
         List<TaskOptionResponseDTO> optionDtos = task.getOptions()
                                                      .stream()
                                                      .map(TaskOptionResponseDTO::of)
-                                                     .collect(Collectors.toList());
+                                                     .toList();
 
-        return new TaskResponseDTO(
-                task.getId(),
-                task.getStatement(),
-                task.getOrder(),
-                task.getType(),
-                optionDtos
-        );
+        return new TaskResponseDTO(task.getId(), task.getStatement(), task.getOrder(), task.getType(), optionDtos);
     }
 }

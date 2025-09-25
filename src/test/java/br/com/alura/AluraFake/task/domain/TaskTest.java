@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
 
-    User instructor = new User("Paulo", "paulo@aluta.com", Role.INSTRUCTOR);
-    Course course = new Course("Java", "Primeiros Passos", instructor);
+    private final User instructor = new User("Paulo", "paulo@aluta.com", Role.INSTRUCTOR);
+    private final Course course = new Course("Java", "Primeiros Passos", instructor);
 
     @Test
     void addOptions__should_add_options_when_all_valid() {
