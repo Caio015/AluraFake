@@ -1,14 +1,12 @@
 package br.com.alura.AluraFake.course.domain;
 
 import br.com.alura.AluraFake.exceptions.CourseMustHaveBuildingStatusException;
-import br.com.alura.AluraFake.exceptions.InvalidOrderException;
 import br.com.alura.AluraFake.exceptions.MustHaveAtLeastOneTaskEachException;
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.Type;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 @Component
 public class CourseValidator {
@@ -21,22 +19,11 @@ public class CourseValidator {
 
         List<Task> tasks = course.getTasks();
 
-        if (verifyIfTasksContainsType(tasks, Type.OPEN_TEXT) &&
-            verifyIfTasksContainsType(tasks, Type.SINGLE_CHOICE) &&
+        if (verifyIfTasksContainsType(tasks, Type.OPEN_TEXT) ||
+            verifyIfTasksContainsType(tasks, Type.SINGLE_CHOICE) ||
             verifyIfTasksContainsType(tasks, Type.MULTIPLE_CHOICE)) {
 
             throw new MustHaveAtLeastOneTaskEachException();
-        }
-    }
-
-    public static void validateIfOrdersAreSequentials(Course course) {
-
-        List<Task> tasks = course.getTasks();
-
-        if(IntStream.range(1, tasks.size())
-                        .allMatch(i -> tasks.get(i).getOrder() == tasks.get(i - 1).getOrder() + 1)) {
-
-            throw new InvalidOrderException();
         }
     }
 

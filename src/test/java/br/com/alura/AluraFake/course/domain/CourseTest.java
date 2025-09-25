@@ -1,9 +1,6 @@
 package br.com.alura.AluraFake.course.domain;
 
-import br.com.alura.AluraFake.exceptions.CourseMustHaveBuildingStatusException;
-import br.com.alura.AluraFake.exceptions.DuplicateStatementException;
-import br.com.alura.AluraFake.exceptions.InvalidOrderException;
-import br.com.alura.AluraFake.exceptions.OrderCannotBeNegativeException;
+import br.com.alura.AluraFake.exceptions.*;
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.TaskFactory;
 import br.com.alura.AluraFake.task.domain.Type;
@@ -11,8 +8,9 @@ import br.com.alura.AluraFake.user.domain.Role;
 import br.com.alura.AluraFake.user.domain.User;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 class CourseTest {
 
@@ -101,13 +99,35 @@ class CourseTest {
     }
 
     @Test
-    void task__should__throw_course_must_be_building_exception__whenCourseStatusNotBuilding() {
+    void publishCourse__should_throw_exception_when_missing_task_type() {
 
-        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
+        Task task1 = TaskFactory.createTask(course, "Qual a Pergunta?", 1, Type.OPEN_TEXT);
+        Task task2 = TaskFactory.createTask(course, "Escolha uma alternativa", 2, Type.OPEN_TEXT);
+        Task task3 = TaskFactory.createTask(course, "Escolha duas alternativas", 3, Type.MULTIPLE_CHOICE);
 
-        course.setStatus(Status.PUBLISHED);
+        course.addTask(task1);
+        course.addTask(task2);
+        course.addTask(task3);
 
-        assertThrows(CourseMustHaveBuildingStatusException.class,
-                     () -> course.addTask(task));
+        assertThrows(MustHaveAtLeastOneTaskEachException.class, () -> course.publishCourse());
     }
+
+    @Test
+    void publishCourse__should_set_status_to_published_and_set_publishedAt_when_valid() {
+        Task task1 = TaskFactory.createTask(course, "Qual a Pergunta?", 1, Type.OPEN_TEXT);
+        Task task2 = TaskFactory.createTask(course, "Escolha uma alternativa", 2, Type.SINGLE_CHOICE);
+        Task task3 = TaskFactory.createTask(course, "Escolha duas alternativas", 3, Type.MULTIPLE_CHOICE);
+
+        course.addTask(task1);
+        course.addTask(task2);
+        course.addTask(task3);
+
+        assertDoesNotThrow(course::publishCourse);
+
+        assertEquals(Status.PUBLISHED, course.getStatus());
+        assertNotNull(course.getPublishedAt());
+        assertTrue(course.getPublishedAt().isBefore(LocalDateTime.now().plusSeconds(1)));
+    }
+
+
 }
