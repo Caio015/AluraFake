@@ -107,7 +107,6 @@ public class Course {
     public void publishCourse() {
 
         validateIfCourseHasAtLeastOneOfEachActivitie(this);
-        validateIfOrdersAreSequentials(this);
         validateCourseStatus(this);
 
         this.status = Status.PUBLISHED;

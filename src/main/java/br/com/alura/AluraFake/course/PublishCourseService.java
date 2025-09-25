@@ -4,8 +4,10 @@ import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.ports.in.FindCourseByIdUseCase;
 import br.com.alura.AluraFake.course.ports.in.PublishCourseUseCase;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PublishCourseService implements PublishCourseUseCase {
 
     private final FindCourseByIdUseCase findCourseByIdUseCase;
