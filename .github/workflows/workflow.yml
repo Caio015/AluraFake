@@ -9,22 +9,19 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
     services:
       mysql:
         image: mysql:8.1
         env:
-          MYSQL_ROOT_PASSWORD: rootpass
-          MYSQL_DATABASE: testdb
-          MYSQL_USER: root
-          MYSQL_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: alurafake_test
         ports:
           - 3306:3306
         options: >-
-          --health-cmd="mysqladmin ping -h localhost -u root -proot"
+          --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=5
+          --health-retries=3
 
     steps:
       - name: Checkout repository
@@ -36,16 +33,16 @@ jobs:
           java-version: 22
           distribution: temurin
 
-      - name: Wait for MySQL to be ready
+      - name: Wait for MySQL
         run: |
-          until mysql -h 127.0.0.1 -P 3306 -u test -proot -e "SELECT 1"; do
+          until mysql -h 127.0.0.1 -P 3306 -u root -proot -e "SELECT 1"; do
             echo "Waiting for MySQL..."
             sleep 5
           done
 
       - name: Build and run tests
-        env:
-          SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-          SPRING_DATASOURCE_USERNAME: test
-          SPRING_DATASOURCE_PASSWORD: testpass
         run: mvn clean test
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/alurafake_test?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: root
