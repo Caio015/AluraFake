@@ -9,7 +9,6 @@ import br.com.alura.AluraFake.user.port.out.FindUserByIdPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FindAllCourserByInstructorIdService implements FindAllCourserByInstructorIdUseCase {
