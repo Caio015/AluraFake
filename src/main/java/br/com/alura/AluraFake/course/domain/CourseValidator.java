@@ -15,7 +15,7 @@ public class CourseValidator {
 
     }
 
-    public static void validateIfCourseHasAtLeastOneOfEachActivitie(Course course) {
+    public static void validateIfCourseHasAtLeastOneOfEachActivity(Course course) {
 
         List<Task> tasks = course.getTasks();
 

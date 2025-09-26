@@ -2,7 +2,7 @@ package br.com.alura.AluraFake.course;
 
 import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.domain.Status;
-import br.com.alura.AluraFake.course.ports.in.FindCourseByIdUseCase;
+import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.TaskFactory;
 import br.com.alura.AluraFake.task.domain.Type;
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PublishCourseServiceTest {
 
-    @Mock private FindCourseByIdUseCase findCourseByIdUseCase;
+    @Mock private FindCourseByIdPort findCourseByIdUseCase;
     @InjectMocks private PublishCourseService service;
 
     @Test

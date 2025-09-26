@@ -1,8 +1,8 @@
-package br.com.alura.AluraFake.course.ports.in;
+package br.com.alura.AluraFake.course.ports.out;
 
 import br.com.alura.AluraFake.course.domain.Course;
 
-public interface FindCourseByIdUseCase {
+public interface FindCourseByIdPort {
 
     Course findById(Long courseId);
 

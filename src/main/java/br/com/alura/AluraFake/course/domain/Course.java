@@ -106,7 +106,7 @@ public class Course {
 
     public void publishCourse() {
 
-        validateIfCourseHasAtLeastOneOfEachActivitie(this);
+        validateIfCourseHasAtLeastOneOfEachActivity(this);
         validateCourseStatus(this);
 
         this.status = Status.PUBLISHED;

@@ -1,11 +1,13 @@
 package br.com.alura.AluraFake.course.adapter.in;
 
+import br.com.alura.AluraFake.course.adapter.in.DTO.CourseListItemDTO;
+import br.com.alura.AluraFake.course.adapter.in.DTO.NewCourseDTO;
 import br.com.alura.AluraFake.course.domain.Course;
-import br.com.alura.AluraFake.course.ports.in.FindAllCoursesUseCase;
+import br.com.alura.AluraFake.course.ports.out.FindAllCoursesPort;
 import br.com.alura.AluraFake.course.ports.in.PublishCourseUseCase;
-import br.com.alura.AluraFake.course.ports.in.SaveCourseUseCase;
+import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.user.domain.User;
-import br.com.alura.AluraFake.user.port.in.FindUserByEmailUseCase;
+import br.com.alura.AluraFake.user.port.out.FindUserByEmailPort;
 import br.com.alura.AluraFake.util.ErrorItemDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,14 @@ import java.util.*;
 @RestController
 public class CourseController {
 
-    private final SaveCourseUseCase saveCoursePort;
-    private final FindUserByEmailUseCase userRepository;
-    private final FindAllCoursesUseCase findAllCoursesUseCase;
+    private final SaveCoursePort saveCoursePort;
+    private final FindUserByEmailPort userRepository;
+    private final FindAllCoursesPort findAllCoursesUseCase;
     private final PublishCourseUseCase publishCourseUseCase;
 
     @Autowired
-    public CourseController(SaveCourseUseCase saveCoursePort, FindUserByEmailUseCase userRepository,
-                            FindAllCoursesUseCase findAllCoursesUseCase, PublishCourseUseCase publishCourseUseCase){
+    public CourseController(SaveCoursePort saveCoursePort, FindUserByEmailPort userRepository,
+                            FindAllCoursesPort findAllCoursesUseCase, PublishCourseUseCase publishCourseUseCase){
 
         this.saveCoursePort = saveCoursePort;
         this.userRepository = userRepository;
@@ -68,5 +70,4 @@ public class CourseController {
 
         return ResponseEntity.noContent().build();
     }
-
 }

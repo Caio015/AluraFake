@@ -1,4 +1,4 @@
-package br.com.alura.AluraFake.user.adapter.in;
+package br.com.alura.AluraFake.user.adapter.in.DTO;
 
 import br.com.alura.AluraFake.user.domain.Role;
 import br.com.alura.AluraFake.user.domain.User;
