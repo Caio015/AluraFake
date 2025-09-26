@@ -5,9 +5,11 @@ import br.com.alura.AluraFake.course.ports.out.FindAllCoursesPort;
 import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
 import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.exceptions.ItemNotFoundException;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class CourseRepositoryAdapter implements FindCourseByIdPort,
                                                 SaveCoursePort,
                                                 FindAllCoursesPort {
@@ -26,9 +28,9 @@ public class CourseRepositoryAdapter implements FindCourseByIdPort,
     }
 
     @Override
-    public void save(Course course) {
+    public Course save(Course course) {
 
-        repository.save(course);
+       return repository.save(course);
     }
 
     @Override

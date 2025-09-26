@@ -1,4 +1,4 @@
-package br.com.alura.AluraFake.course;
+package br.com.alura.AluraFake.course.application;
 
 import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;

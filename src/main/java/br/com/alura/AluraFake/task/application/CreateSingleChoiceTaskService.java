@@ -3,6 +3,7 @@ package br.com.alura.AluraFake.task.application;
 import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
 import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
+import br.com.alura.AluraFake.exceptions.NoTaskWithStatementFound;
 import br.com.alura.AluraFake.task.adapter.in.DTO.TaskOptionDTO;
 import br.com.alura.AluraFake.task.domain.*;
 import br.com.alura.AluraFake.task.port.in.CreateSingleChoiceTaskUseCase;
@@ -31,14 +32,19 @@ public class CreateSingleChoiceTaskService implements CreateSingleChoiceTaskUseC
 
         Task task = TaskFactory.createTask(course, statement, order, Type.SINGLE_CHOICE);
 
-        List<TaskOption> taskOptions = TaskOptionMapper.from(taskOptionsDTO);
+        List<TaskOption> taskOptions = TaskOptionMapper.from(task, taskOptionsDTO);
 
         task.addOptions(taskOptions);
 
         course.addTask(task);
 
-        saveCoursePort.save(course);
+        Course savedCourse = saveCoursePort.save(course);
 
-        return task;
+        return savedCourse.getTasks()
+                          .stream()
+                          .filter(t -> t.getStatement().equals(statement))
+                          .findFirst()
+                          .orElseThrow(() -> new NoTaskWithStatementFound(statement));
+
     }
 }

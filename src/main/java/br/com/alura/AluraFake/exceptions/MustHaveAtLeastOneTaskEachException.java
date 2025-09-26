@@ -1,6 +1,6 @@
 package br.com.alura.AluraFake.exceptions;
 
-public class MustHaveAtLeastOneTaskEachException extends RuntimeException {
+public class MustHaveAtLeastOneTaskEachException extends DomainException {
 
     public MustHaveAtLeastOneTaskEachException() {
 

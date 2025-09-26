@@ -23,7 +23,7 @@ class TaskTest {
 
         Task task = new Task(course, "Qual linguagem desse curso?", 1, Type.SINGLE_CHOICE);
 
-        List<TaskOption> options = List.of(new TaskOption("Java", true), new TaskOption("Python", false));
+        List<TaskOption> options = List.of(new TaskOption("Java", true, task), new TaskOption("Python", false, task));
 
         task.addOptions(options);
 
@@ -35,7 +35,9 @@ class TaskTest {
     @Test
     void validateOptionsCountByTaskType__should_throw_exception_when_single_choice_has_less_than_2_options() {
 
-        List<TaskOption> options = List.of(new TaskOption("Java", true));
+        Task task = new Task(course, "Qual linguagem desse curso?", 1, Type.SINGLE_CHOICE);
+
+        List<TaskOption> options = List.of(new TaskOption("Java", true, task));
 
         assertThrows(InvalidNumberOfOptionsException.class,
                      () -> TaskValidator.validateOptionsCountByTaskType(Type.SINGLE_CHOICE, options));
@@ -44,12 +46,14 @@ class TaskTest {
     @Test
     void validateOptionsCountByTaskType__should_throw_exception_when_single_choice_has_more_than_5_options() {
 
-        List<TaskOption> options = List.of(new TaskOption("Java", false),
-                                           new TaskOption("Python", false),
-                                           new TaskOption("C#", false),
-                                           new TaskOption("Ruby", false),
-                                           new TaskOption("Golang", false),
-                                           new TaskOption("Javascript", false));
+        Task task = new Task(course, "Qual linguagem desse curso?", 1, Type.SINGLE_CHOICE);
+
+        List<TaskOption> options = List.of(new TaskOption("Java", false, task),
+                                           new TaskOption("Python", false, task),
+                                           new TaskOption("C#", false, task),
+                                           new TaskOption("Ruby", false, task),
+                                           new TaskOption("Golang", false, task),
+                                           new TaskOption("Javascript", false, task));
 
         assertThrows(InvalidNumberOfOptionsException.class,
                      () -> TaskValidator.validateOptionsCountByTaskType(Type.MULTIPLE_CHOICE, options));
@@ -60,8 +64,8 @@ class TaskTest {
 
         Task task = new Task(course, "Qual linguagem desse curso?", 1, Type.SINGLE_CHOICE);
 
-        List<TaskOption> options = List.of(new TaskOption("Java", true),
-                                           new TaskOption("Python", true));
+        List<TaskOption> options = List.of(new TaskOption("Java", true, task),
+                                           new TaskOption("Python", true, task));
 
         assertThrows(CorrectAnswerNumberException.class, () -> task.addOptions(options));
     }
@@ -71,7 +75,7 @@ class TaskTest {
 
         Task task = new Task(course, "Qual linguagem desse curso?", 1, Type.SINGLE_CHOICE);
 
-        List<TaskOption> options = List.of(new TaskOption("Java", true), new TaskOption("javá", false));
+        List<TaskOption> options = List.of(new TaskOption("Java", true, task), new TaskOption("javá", false, task));
 
         assertThrows(UniqueOptionsException.class, () -> task.addOptions(options));
     }
@@ -81,8 +85,8 @@ class TaskTest {
 
         Task task = new Task(course, "Qual linguagem desse curso?", 1, Type.SINGLE_CHOICE);
 
-        List<TaskOption> options = List.of(new TaskOption("Java", true),
-                                           new TaskOption("QUal Linguagem DESSE cursó?", false));
+        List<TaskOption> options = List.of(new TaskOption("Java", true, task),
+                                           new TaskOption("QUal Linguagem DESSE cursó?", false, task));
 
         assertThrows(OptionMustBeDifferentFromStatementException.class, () -> task.addOptions(options));
     }
@@ -92,9 +96,9 @@ class TaskTest {
 
         Task task = new Task(course, "Quais alternativas estão corretas?", 1, Type.MULTIPLE_CHOICE);
 
-        List<TaskOption> options = List.of(new TaskOption("Correta 1", true),
-                                           new TaskOption("Falsa 1", false),
-                                           new TaskOption("Falsa 2", false));
+        List<TaskOption> options = List.of(new TaskOption("Correta 1", true, task),
+                                           new TaskOption("Falsa 1", false, task),
+                                           new TaskOption("Falsa 2", false, task));
 
         assertThrows(CorrectAnswerNumberException.class,
                      () -> task.addOptions(options));

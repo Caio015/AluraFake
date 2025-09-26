@@ -2,6 +2,7 @@ package br.com.alura.AluraFake.task.application;
 
 import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
+import br.com.alura.AluraFake.exceptions.NoTaskWithStatementFound;
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.TaskFactory;
 import br.com.alura.AluraFake.task.domain.Type;
@@ -32,8 +33,12 @@ public class CreateOpenTextTaskService implements CreateOpenTextTaskUseCase {
 
         course.addTask(task);
 
-        saveCoursePort.save(course);
+        Course savedCourse = saveCoursePort.save(course);
 
-        return task;
+        return savedCourse.getTasks()
+                                   .stream()
+                                   .filter(t -> t.getStatement().equals(statement))
+                                   .findFirst()
+                                   .orElseThrow(() -> new NoTaskWithStatementFound(statement));
     }
 }

@@ -27,8 +27,7 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Type type;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "task_id")
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TaskOption> options = new ArrayList<>();
 
     protected Task(Course course, String statement, Integer order, Type type) {

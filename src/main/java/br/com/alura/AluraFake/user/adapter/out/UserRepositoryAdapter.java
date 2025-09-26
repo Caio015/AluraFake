@@ -4,9 +4,11 @@ import br.com.alura.AluraFake.exceptions.UserNotFoundException;
 import br.com.alura.AluraFake.user.domain.User;
 import br.com.alura.AluraFake.user.port.out.FindUserByEmailPort;
 import br.com.alura.AluraFake.user.port.out.FindUserByIdPort;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class UserRepositoryAdapter implements FindUserByEmailPort,
                                               FindUserByIdPort {
 

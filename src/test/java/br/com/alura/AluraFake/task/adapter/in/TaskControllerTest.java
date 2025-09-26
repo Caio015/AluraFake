@@ -76,7 +76,7 @@ class TaskControllerTest {
 
         List<TaskOption> taskOptions = dto.getOptions()
                                           .stream()
-                                          .map(opt -> new TaskOption(opt.getOption(), opt.getCorrect()))
+                                          .map(opt -> new TaskOption(opt.getOption(), opt.getCorrect(), task))
                                           .toList();
         task.addOptions(taskOptions);
 
@@ -114,7 +114,7 @@ class TaskControllerTest {
 
         List<TaskOption> taskOptions = dto.getOptions()
                                           .stream()
-                                          .map(opt -> new TaskOption(opt.getOption(), opt.getCorrect()))
+                                          .map(opt -> new TaskOption(opt.getOption(), opt.getCorrect(), task))
                                           .toList();
         task.addOptions(taskOptions);
 
