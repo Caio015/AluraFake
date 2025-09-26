@@ -1,5 +1,7 @@
 package br.com.alura.AluraFake.user.adapter.in;
 
+import br.com.alura.AluraFake.user.adapter.in.DTO.NewUserDTO;
+import br.com.alura.AluraFake.user.adapter.in.DTO.UserListItemDTO;
 import br.com.alura.AluraFake.user.adapter.out.UserRepository;
 import br.com.alura.AluraFake.user.domain.User;
 import br.com.alura.AluraFake.util.ErrorItemDTO;

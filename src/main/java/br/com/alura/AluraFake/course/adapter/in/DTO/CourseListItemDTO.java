@@ -1,4 +1,4 @@
-package br.com.alura.AluraFake.course.adapter.in;
+package br.com.alura.AluraFake.course.adapter.in.DTO;
 
 import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.domain.Status;
@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public class CourseListItemDTO implements Serializable {
 
-    private Long id;
-    private String title;
-    private String description;
-    private Status status;
+    private final Long id;
+    private final String title;
+    private final String description;
+    private final Status status;
 
     public CourseListItemDTO(Course course) {
         this.id = course.getId();

@@ -1,8 +1,8 @@
 package br.com.alura.AluraFake.task.application;
 
 import br.com.alura.AluraFake.course.domain.Course;
-import br.com.alura.AluraFake.course.ports.in.FindCourseByIdUseCase;
-import br.com.alura.AluraFake.course.ports.in.SaveCourseUseCase;
+import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
+import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.task.adapter.in.DTO.TaskOptionDTO;
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.Type;
@@ -23,8 +23,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CreateSingleChoiceTaskServiceTest {
 
-    @Mock private FindCourseByIdUseCase findCourseByIdUseCase;
-    @Mock private SaveCourseUseCase saveCourseUseCase;
+    @Mock private FindCourseByIdPort findCourseByIdUseCase;
+    @Mock private SaveCoursePort saveCourseUseCase;
     @InjectMocks private CreateSingleChoiceTaskService service;
 
     @Test

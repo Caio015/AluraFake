@@ -1,14 +1,14 @@
 package br.com.alura.AluraFake.course;
 
 import br.com.alura.AluraFake.course.adapter.in.CourseController;
-import br.com.alura.AluraFake.course.adapter.in.NewCourseDTO;
+import br.com.alura.AluraFake.course.adapter.in.DTO.NewCourseDTO;
 import br.com.alura.AluraFake.course.domain.Course;
-import br.com.alura.AluraFake.course.ports.in.FindAllCoursesUseCase;
+import br.com.alura.AluraFake.course.ports.out.FindAllCoursesPort;
 import br.com.alura.AluraFake.course.ports.in.PublishCourseUseCase;
-import br.com.alura.AluraFake.course.ports.in.SaveCourseUseCase;
+import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.user.domain.Role;
 import br.com.alura.AluraFake.user.domain.User;
-import br.com.alura.AluraFake.user.port.in.FindUserByEmailUseCase;
+import br.com.alura.AluraFake.user.port.out.FindUserByEmailPort;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +31,13 @@ class CourseControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private SaveCourseUseCase saveCourseUseCase;
+    private SaveCoursePort saveCourseUseCase;
 
     @MockBean
-    private FindUserByEmailUseCase findUserByEmailUseCase;
+    private FindUserByEmailPort findUserByEmailUseCase;
 
     @MockBean
-    private FindAllCoursesUseCase findAllCoursesUseCase;
+    private FindAllCoursesPort findAllCoursesUseCase;
 
     @MockBean
     private PublishCourseUseCase publishCourseUseCase;

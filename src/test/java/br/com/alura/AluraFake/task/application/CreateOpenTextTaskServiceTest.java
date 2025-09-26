@@ -1,8 +1,8 @@
 package br.com.alura.AluraFake.task.application;
 
 import br.com.alura.AluraFake.course.domain.Course;
-import br.com.alura.AluraFake.course.ports.in.FindCourseByIdUseCase;
-import br.com.alura.AluraFake.course.ports.in.SaveCourseUseCase;
+import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;
+import br.com.alura.AluraFake.course.ports.out.SaveCoursePort;
 import br.com.alura.AluraFake.task.domain.Task;
 import br.com.alura.AluraFake.task.domain.Type;
 import br.com.alura.AluraFake.user.domain.Role;
@@ -20,8 +20,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CreateOpenTextTaskServiceTest {
 
-    @Mock private FindCourseByIdUseCase findCourseByIdPort;
-    @Mock private SaveCourseUseCase saveCoursePort;
+    @Mock private FindCourseByIdPort findCourseByIdPort;
+    @Mock private SaveCoursePort saveCoursePort;
     @InjectMocks private CreateOpenTextTaskService service;
 
 

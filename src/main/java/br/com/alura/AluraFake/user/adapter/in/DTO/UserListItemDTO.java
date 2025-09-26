@@ -1,4 +1,4 @@
-package br.com.alura.AluraFake.user.adapter.in;
+package br.com.alura.AluraFake.user.adapter.in.DTO;
 
 import br.com.alura.AluraFake.user.domain.Role;
 import br.com.alura.AluraFake.user.domain.User;
@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 public class UserListItemDTO implements Serializable {
 
-    private String name;
-    private String email;
-    private Role role;
+    private final String name;
+    private final String email;
+    private final Role role;
 
     public UserListItemDTO(User user) {
         this.name = user.getName();
