@@ -1,6 +1,6 @@
 package br.com.alura.AluraFake.util;
 
-import br.com.alura.AluraFake.exceptions.UserNotFoundException;
+import br.com.alura.AluraFake.exceptions.DomainException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,9 +21,8 @@ public class ValidationExceptionHandler {
     }
 
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorItemDTO> handleUserNotFound(UserNotFoundException ex) {
-        ErrorItemDTO error = new ErrorItemDTO("userId", ex.getMessage());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    @ExceptionHandler(DomainException.class)
+    public ResponseEntity<ErrorItemDTO> handleDomainException(DomainException ex) {
+        return ResponseEntity.badRequest().body(new ErrorItemDTO("global", ex.getMessage()));
     }
 }

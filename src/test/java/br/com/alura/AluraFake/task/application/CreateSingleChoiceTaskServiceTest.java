@@ -23,24 +23,25 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class CreateSingleChoiceTaskServiceTest {
 
-    @Mock private FindCourseByIdPort findCourseByIdUseCase;
-    @Mock private SaveCoursePort saveCourseUseCase;
+    @Mock private FindCourseByIdPort findCourseByIdPort;
+    @Mock private SaveCoursePort saveCoursePort;
     @InjectMocks private CreateSingleChoiceTaskService service;
 
     @Test
-    void task__should__create_newSingleChoiceTask__andReturnIt() {
+    void task__should__create_new_single_choice_task__and_return_it() {
 
         User instructor = new User("Paulo", "paulo@aluta.com", Role.INSTRUCTOR);
         Course course = new Course("Java", "Primeiros Passos", instructor);
 
-        when(findCourseByIdUseCase.findById(1L)).thenReturn(course);
+        when(findCourseByIdPort.findById(1L)).thenReturn(course);
+        when(saveCoursePort.save(course)).thenReturn(course);
 
         List<TaskOptionDTO> options = List.of(new TaskOptionDTO("Java", true),
                                               new TaskOptionDTO("Python", false));
 
         Task task = service.execute(1L, "Qual linguagem é ensinada?", 1, options);
 
-        verify(saveCourseUseCase).save(course);
+        verify(saveCoursePort).save(course);
 
         assertEquals(1, course.getTasks().size());
         assertEquals("Qual linguagem é ensinada?", task.getStatement());

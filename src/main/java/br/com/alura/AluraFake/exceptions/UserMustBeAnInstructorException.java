@@ -1,6 +1,6 @@
 package br.com.alura.AluraFake.exceptions;
 
-public class UserMustBeAnInstructorException extends RuntimeException {
+public class UserMustBeAnInstructorException extends DomainException {
 
     public UserMustBeAnInstructorException() {
 

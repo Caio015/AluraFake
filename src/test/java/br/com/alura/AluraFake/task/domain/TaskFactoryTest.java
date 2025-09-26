@@ -6,7 +6,6 @@ import br.com.alura.AluraFake.user.domain.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 class TaskFactoryTest {
 
@@ -14,8 +13,8 @@ class TaskFactoryTest {
     private final Course course = new Course("Java", "Primeiros Passos", instructor);
 
     @Test
-    void task__should__create__successfully__whenDataIsValid() {
-        Task task = TaskFactory.createTask(course, "Aprender Java", 1, any());
+    void task__should__create__successfully__when_data_is_valid() {
+        Task task = TaskFactory.createTask(course, "Aprender Java", 1,  Type.OPEN_TEXT);
 
         assertEquals("Aprender Java", task.getStatement());
         assertEquals(1, task.getOrder());

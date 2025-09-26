@@ -4,6 +4,6 @@ import br.com.alura.AluraFake.course.domain.Course;
 
 public interface SaveCoursePort {
 
-    void save(Course course);
+    Course save(Course course);
 
 }

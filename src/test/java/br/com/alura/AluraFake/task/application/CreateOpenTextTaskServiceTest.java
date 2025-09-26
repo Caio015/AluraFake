@@ -26,12 +26,13 @@ class CreateOpenTextTaskServiceTest {
 
 
     @Test
-    void task__should__create__newOpenTextTask__andReturnIt() {
+    void task__should__create__new_open_text_task__and_return_it() {
 
         User instructor = new User("Paulo", "paulo@aluta.com", Role.INSTRUCTOR);
         Course course = new Course("Java", "Primeiros Passos", instructor);
 
         when(findCourseByIdPort.findById(1L)).thenReturn(course);
+        when(saveCoursePort.save(course)).thenReturn(course);
 
         Task task = service.execute(1L, "Hello World!", 1);
 

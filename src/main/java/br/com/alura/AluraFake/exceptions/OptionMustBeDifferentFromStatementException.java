@@ -1,6 +1,6 @@
 package br.com.alura.AluraFake.exceptions;
 
-public class OptionMustBeDifferentFromStatementException extends RuntimeException {
+public class OptionMustBeDifferentFromStatementException extends DomainException {
 
     public OptionMustBeDifferentFromStatementException(String option) {
 

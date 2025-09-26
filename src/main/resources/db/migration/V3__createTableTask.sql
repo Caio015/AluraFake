@@ -5,16 +5,16 @@ CREATE TABLE Task (
     task_order INT NOT NULL,
     type ENUM('OPEN_TEXT','SINGLE_CHOICE','MULTIPLE_CHOICE') DEFAULT 'OPEN_TEXT',
     PRIMARY KEY (id),
-    CONSTRAINT fk_task_course FOREIGN KEY (course_id) REFERENCES course(id)
+    CONSTRAINT FK_Task_Course FOREIGN KEY (course_id) REFERENCES Course(id)
         ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE Task_option (
     id BIGINT(20) NOT NULL AUTO_INCREMENT,
-    option VARCHAR(255) NOT NULL,
+    option_text VARCHAR(255) NOT NULL,
     is_correct BOOLEAN NOT NULL,
     task_id BIGINT(20) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_task_option_task FOREIGN KEY (task_id) REFERENCES task(id)
+    CONSTRAINT FK_TaskOption_Task FOREIGN KEY (task_id) REFERENCES Task(id)
         ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

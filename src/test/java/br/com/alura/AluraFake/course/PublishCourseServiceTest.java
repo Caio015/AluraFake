@@ -1,5 +1,6 @@
 package br.com.alura.AluraFake.course;
 
+import br.com.alura.AluraFake.course.application.PublishCourseService;
 import br.com.alura.AluraFake.course.domain.Course;
 import br.com.alura.AluraFake.course.domain.Status;
 import br.com.alura.AluraFake.course.ports.out.FindCourseByIdPort;

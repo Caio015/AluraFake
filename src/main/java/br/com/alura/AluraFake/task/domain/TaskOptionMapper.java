@@ -6,10 +6,14 @@ import java.util.List;
 
 public class TaskOptionMapper {
 
-    public static List<TaskOption> from(List<TaskOptionDTO> options) {
+    protected TaskOptionMapper() {
+
+    }
+
+    public static List<TaskOption> from(Task task, List<TaskOptionDTO> options) {
 
         return options.stream()
-                      .map(dto -> new TaskOption(dto.getOption(), dto.getCorrect()))
+                      .map(dto -> new TaskOption(dto.getOption(), dto.getCorrect(), task))
                       .toList();
     }
 }
